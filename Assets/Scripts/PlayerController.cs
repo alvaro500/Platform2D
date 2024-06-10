@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 	private bool isFaceingRight = true;
 	
 	[SerializeField] private float movementSpeed = 10.0f;
+	[SerializeField] private float jumpForce = 16.0f;
 	
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         CheckInput();
 		CheckMovementDirection();
@@ -43,6 +44,16 @@ public class PlayerController : MonoBehaviour
 	private void CheckInput()
 	{
 		movementInputDirection = Input.GetAxisRaw("Horizontal");
+		
+		if(Input.GetButtonDown("Jump"))
+		{
+			Jump();
+		}
+	}
+	
+	private void Jump()
+	{
+		rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 	}
 	
 	private void ApplyMovement()
